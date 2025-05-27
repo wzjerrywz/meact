@@ -1,4 +1,3 @@
-
 {
   "name": "meact",
   "version": "1.0.0",
@@ -10,9 +9,8 @@
     "test": "jest"
   },
   "dependencies": {
-    "@actions/core": "^1.10.0"
-  
-  
+    "@actions/core": "^1.10.0",
+    "@actions/exec": "^1.1.1"
   },
   "keywords": [],
   "author": "",

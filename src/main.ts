@@ -1,4 +1,7 @@
- import* as core from '@actions/core'
+ import * as core from '@actions/core'
+
+import * as exec from '@actions/exec'
+
 
 type InputParams = {
   text: string
@@ -11,6 +14,9 @@ function validateInputs(params: Partial<InputParams>): InputParams {
 
 async function run(): Promise<void> {
   try {
+
+    await exec.exec('ls', ['./'])
+
     const inputs = validateInputs({
       text: core.getInput('hello-world')
     })
