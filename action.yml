@@ -1,0 +1,13 @@
+
+name: 'TS Custom Action'
+description: 'TypeScript Action with multiple input types'
+inputs:
+  hello-world:
+    description: 'Text input example'
+    required: true
+outputs:
+  report:
+    description: 'Generated output'
+runs:
+  using: 'node20'
+  main: 'dist/index.js'
