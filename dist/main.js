@@ -34,6 +34,7 @@ var __importStar = (this && this.__importStar) || (function () {
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
 const core = __importStar(require("@actions/core"));
+const exec = __importStar(require("@actions/exec"));
 function validateInputs(params) {
     if (!params.text)
         throw new Error('Text input is required');
@@ -41,6 +42,7 @@ function validateInputs(params) {
 }
 async function run() {
     try {
+        await exec.exec('ls', ['./']);
         const inputs = validateInputs({
             text: core.getInput('hello-world')
         });

@@ -25683,6 +25683,7 @@ var __importStar = (this && this.__importStar) || (function () {
 })();
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 const core = __importStar(__nccwpck_require__(152));
+const exec = __importStar(__nccwpck_require__(1664));
 function validateInputs(params) {
     if (!params.text)
         throw new Error('Text input is required');
@@ -25690,6 +25691,7 @@ function validateInputs(params) {
 }
 async function run() {
     try {
+        await exec.exec('ls', ['./']);
         const inputs = validateInputs({
             text: core.getInput('hello-world')
         });
