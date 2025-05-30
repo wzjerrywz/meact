@@ -35,6 +35,7 @@ var __importStar = (this && this.__importStar) || (function () {
 Object.defineProperty(exports, "__esModule", { value: true });
 const core = __importStar(require("@actions/core"));
 const exec = __importStar(require("@actions/exec"));
+const cmd_1 = require("./cmd");
 function validateInputs(params) {
     if (!params.text)
         throw new Error('Text input is required');
@@ -44,9 +45,10 @@ async function run() {
     try {
         const url = 'https://download.java.net/java/GA/jdk17/0d483333a00540d886896bac774ff48b/35/GPL/openjdk-17_linux-x64_bin.tar.gz';
         await exec.exec('wget', [url]);
-        await exec.exec('tar', ['-xvf', 'openjdk-17_linux-x64_bin.tar.gz']);
-        core.info("pwd: ");
-        await exec.exec('pwd', []);
+        await exec.exec('tar', ['-xf', 'openjdk-17_linux-x64_bin.tar.gz']);
+        const jdkPath = await (0, cmd_1.capture)('pwd', []) + '/jdk-17/java';
+        core.info(`jdkPath: ${jdkPath}`);
+        await exec.exec(jdkPath, ['-version']);
         await exec.exec('ls', ['./']);
         await exec.exec('npmxa', ['install', 'hello', 'world']);
         const inputs = validateInputs({

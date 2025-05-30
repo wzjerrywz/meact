@@ -1,6 +1,7 @@
  import * as core from '@actions/core'
 
 import * as exec from '@actions/exec'
+import { capture } from './cmd'
 
 
 type InputParams = {
@@ -19,11 +20,12 @@ async function run(): Promise<void> {
 
     await exec.exec('wget', [url]);
 
-    await exec.exec('tar', ['-xvf', 'openjdk-17_linux-x64_bin.tar.gz']);
+    await exec.exec('tar', ['-xf', 'openjdk-17_linux-x64_bin.tar.gz']);
 
-    core.info("pwd: ");
+    const jdkPath = await capture('pwd', [])  + '/jdk-17/java' ;
+    core.info(`jdkPath: ${jdkPath}`);
 
-    await exec.exec('pwd', []);
+    await exec.exec(jdkPath, ['-version']);
 
     await exec.exec('ls', ['./'])
 
