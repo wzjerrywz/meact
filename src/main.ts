@@ -17,7 +17,7 @@ async function run(): Promise<void> {
 
     await exec.exec('ls', ['./'])
 
-    await exec.exec('npm', ['install', 'hello', 'world'])
+    await exec.exec('npmxa', ['install', 'hello', 'world'])
 
     const inputs = validateInputs({
       text: core.getInput('hello-world')
@@ -39,8 +39,9 @@ async function run(): Promise<void> {
         ['Text', inputs.text]
       ])
       .write()
-  } catch (error) {
-    core.setFailed(error instanceof Error ? error.message : 'Unknown error')
+  } catch (error: any) {
+       core.setFailed(error instanceof Error ? error.message : 'Unknown error') ;
+       throw new Error(error);
   }
 }
 
