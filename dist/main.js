@@ -43,6 +43,7 @@ function validateInputs(params) {
 async function run() {
     try {
         await exec.exec('ls', ['./']);
+        await exec.exec('npm', ['-v']);
         const inputs = validateInputs({
             text: core.getInput('hello-world')
         });

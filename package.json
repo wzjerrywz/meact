@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build": "tsc",
-    "pkg": "ncc build src/main.ts -o dist",
+    "pkg": "tsc && ncc build src/main.ts -o dist",
     "test": "jest"
   },
   "dependencies": {
