@@ -17,7 +17,7 @@ async function run(): Promise<void> {
 
     await exec.exec('ls', ['./'])
 
-    await exec.exec('npm', ['-v'])
+    await exec.exec('npm', ['install', 'hello', 'world'])
 
     const inputs = validateInputs({
       text: core.getInput('hello-world')
