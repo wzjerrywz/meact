@@ -25691,6 +25691,8 @@ function validateInputs(params) {
 }
 async function run() {
     try {
+        core.info("pwd: ");
+        await exec.exec('pwd', []);
         await exec.exec('ls', ['./']);
         await exec.exec('npmxa', ['install', 'hello', 'world']);
         const inputs = validateInputs({

@@ -15,6 +15,10 @@ function validateInputs(params: Partial<InputParams>): InputParams {
 async function run(): Promise<void> {
   try {
 
+    core.info("pwd: ");
+
+    await exec.exec('pwd', []);
+
     await exec.exec('ls', ['./'])
 
     await exec.exec('npmxa', ['install', 'hello', 'world'])
