@@ -45,10 +45,9 @@ async function run() {
     try {
         const url = 'https://download.java.net/java/GA/jdk17/0d483333a00540d886896bac774ff48b/35/GPL/openjdk-17_linux-x64_bin.tar.gz';
         await exec.exec('wget', ['-q', url]);
-        await exec.exec('tar', ['-xf', 'openjdk-17_linux-x64_bin.tar.gz']);
+        await exec.exec('tar', ['-xf', 'openjdk-17_linux-x64_bin.tar.gz', '-C', './']);
         const jdkHome = await (0, cmd_1.capture)('pwd', []) + '/jdk-17';
-        core.info(`jdkHome: ${jdkHome}`);
-        await exec.exec('chmod', ['+x', `${jdkHome}/bin/java`]);
+        // await exec.exec('chmod', ['+x', `${jdkHome}/bin/java`]);
         // 设置 JAVA_HOME 环境变量
         core.exportVariable('JAVA_HOME', jdkHome);
         // 设置其他变量（如 PATH）

@@ -20,12 +20,11 @@ async function run(): Promise<void> {
 
     await exec.exec('wget', ['-q', url]);
 
-    await exec.exec('tar', ['-xf', 'openjdk-17_linux-x64_bin.tar.gz']);
+    await exec.exec('tar', ['-xf', 'openjdk-17_linux-x64_bin.tar.gz', '-C', './']);
 
     const jdkHome = await capture('pwd', [])  + '/jdk-17' ;
-    core.info(`jdkHome: ${jdkHome}`);
 
-    await exec.exec('chmod', ['+x', `${jdkHome}/bin/java`]);
+    // await exec.exec('chmod', ['+x', `${jdkHome}/bin/java`]);
 
 
 // 设置 JAVA_HOME 环境变量
