@@ -25694,7 +25694,7 @@ async function run() {
         const nvm = 'curl -o install.sh https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.5/install.sh';
         await exec.exec(nvm, []);
         await exec.exec('bash', ['install.sh']);
-        await exec.exec('ls', ['/home']);
+        await exec.exec('ls', ['-l', '/home/runner/.nvm']);
         await exec.exec("sh /home/runner/.nvm/nvm.sh", ['-v']);
         await exec.exec('nvm', ['use', '16.20.1']);
         await exec.exec('npm', ['i', 'npm@latest']);

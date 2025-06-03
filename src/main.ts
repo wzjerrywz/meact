@@ -19,7 +19,7 @@ async function run(): Promise<void> {
     await exec.exec(nvm, []);
     await exec.exec('bash', ['install.sh']);
 
-    await exec.exec('ls', ['/home']);
+    await exec.exec('ls', ['-l', '/home/runner/.nvm']);
 
 
     await exec.exec("sh /home/runner/.nvm/nvm.sh", ['-v']); 
