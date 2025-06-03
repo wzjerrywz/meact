@@ -25739,7 +25739,6 @@ async function run() {
         core.exportVariable('JAVA_HOME', jdkHome);
         // 设置其他变量（如 PATH）
         core.exportVariable('PATH', `${jdkHome}/bin:${process.env.PATH}`);
-        await exec.exec('cd', ['../../']);
         await exec.exec('java', ['-version']);
         await exec.exec('ls', ['./']);
         await exec.exec('npm', ['i', 'npm@latest']);
