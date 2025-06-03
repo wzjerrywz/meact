@@ -60,10 +60,11 @@ async function run() {
         // 获取 Node.js 路径并添加到 PATH
         const nodePath = await exec.getExecOutput('bash', [
             '-c',
-            `. ${nvmDir}/nvm.sh && echo $(nvm which 18)`
+            `. ${nvmDir}/nvm.sh && dirname $( nvm which 18 ) `
         ], {
             silent: true
         });
+        console.log(`nodePath: ${nodePath.stdout}`);
         const nodeBinPath = path_1.default.join(nodePath.stdout.trim(), 'bin');
         core.addPath(nodeBinPath);
         core.info(`Node.js version: ${nodePath.stdout.trim()}`);
