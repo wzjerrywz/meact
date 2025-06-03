@@ -21,11 +21,8 @@ async function run(): Promise<void> {
 
     await exec.exec('ls', ['/home']);
 
-    const homeDir = await capture('echo $HOME', []) ;
 
-    core.exportVariable(`NVM_DIR`, `/home/runner/.nvm`);
-    await exec.exec(`[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"`, []); 
-    await exec.exec(`[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"`, []);  
+    await exec.exec("sh /home/runner/.nvm/nvm.sh", ['-v']); 
     
 
     await exec.exec('nvm', ['use', '16.20.1']);

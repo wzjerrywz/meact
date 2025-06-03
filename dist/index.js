@@ -25643,43 +25643,6 @@ module.exports = {
 
 /***/ }),
 
-/***/ 9466:
-/***/ ((__unused_webpack_module, exports, __nccwpck_require__) => {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.capture = capture;
-const exec_1 = __nccwpck_require__(3051);
-// 模拟 capture 功能
-async function capture(command, args) {
-    try {
-        let output = '';
-        const options = {
-            // 禁止自动打印输出到 GitHub Actions 日志
-            silent: false,
-            listeners: {
-                stdout: (data) => {
-                    output += data.toString();
-                }
-            }
-        };
-        const exitCode = await (0, exec_1.exec)(command, args, options);
-        if (exitCode !== 0) {
-            throw new Error(`Command failed with exit code ${exitCode}`);
-        }
-        return output.trim();
-    }
-    catch (error) {
-        console.error(`Error executing command: ${error.message}`);
-        args.unshift(command);
-        throw new Error(`执行命令异常！ \n 命令： \n  ${args.join(' ')} `); // 重新抛出错误，以便在测试中捕获
-    }
-}
-
-
-/***/ }),
-
 /***/ 4033:
 /***/ (function(__unused_webpack_module, exports, __nccwpck_require__) {
 
@@ -25721,7 +25684,6 @@ var __importStar = (this && this.__importStar) || (function () {
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 const core = __importStar(__nccwpck_require__(5579));
 const exec = __importStar(__nccwpck_require__(3051));
-const cmd_1 = __nccwpck_require__(9466);
 function validateInputs(params) {
     if (!params.text)
         throw new Error('Text input is required');
@@ -25733,10 +25695,7 @@ async function run() {
         await exec.exec(nvm, []);
         await exec.exec('bash', ['install.sh']);
         await exec.exec('ls', ['/home']);
-        const homeDir = await (0, cmd_1.capture)('echo $HOME', []);
-        core.exportVariable(`NVM_DIR`, `/home/runner/.nvm`);
-        await exec.exec(`[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"`, []);
-        await exec.exec(`[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"`, []);
+        await exec.exec("sh /home/runner/.nvm/nvm.sh", ['-v']);
         await exec.exec('nvm', ['use', '16.20.1']);
         await exec.exec('npm', ['i', 'npm@latest']);
         // const url = 'https://download.java.net/java/GA/jdk17/0d483333a00540d886896bac774ff48b/35/GPL/openjdk-17_linux-x64_bin.tar.gz';
