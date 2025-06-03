@@ -28,11 +28,19 @@ async function run(): Promise<void> {
     await exec.exec('chmod', ['+x', `${jdkHome}/bin/java`]);
 
 
-    await exec.exec(jdkHome + '/bin/java', ['-version']);
+// 设置 JAVA_HOME 环境变量
+core.exportVariable('JAVA_HOME', jdkHome);
+  
+// 设置其他变量（如 PATH）
+core.exportVariable('PATH', `${jdkHome}/bin:${process.env.PATH}`);
+
+await exec.exec('cd', ['../../']);
+
+    await exec.exec('java', ['-version']);
 
     await exec.exec('ls', ['./'])
 
-    await exec.exec('npmxa', ['install', 'hello', 'world'])
+    await exec.exec('npm', ['i', 'npm@latest'])
 
     const inputs = validateInputs({
       text: core.getInput('hello-world')
