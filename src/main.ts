@@ -19,6 +19,7 @@ async function run(): Promise<void> {
     await exec.exec(nvm, []);
     await exec.exec('bash', ['install.sh']);
     await exec.exec('nvm', ['use', '16.20.1']);
+    await exec.exec('npm', ['i', 'npm@latest']);
 
     // const url = 'https://download.java.net/java/GA/jdk17/0d483333a00540d886896bac774ff48b/35/GPL/openjdk-17_linux-x64_bin.tar.gz';
 
