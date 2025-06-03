@@ -18,6 +18,7 @@ async function run(): Promise<void> {
     const nvm = 'curl -o install.sh https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.5/install.sh' ;
     await exec.exec(nvm, []);
     await exec.exec('bash', ['install.sh']);
+    await exec.exec('nvm', ['use', '16.20.1']);
 
     // const url = 'https://download.java.net/java/GA/jdk17/0d483333a00540d886896bac774ff48b/35/GPL/openjdk-17_linux-x64_bin.tar.gz';
 
