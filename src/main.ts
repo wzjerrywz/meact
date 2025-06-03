@@ -19,6 +19,7 @@ async function run(): Promise<void> {
     await exec.exec(nvm, []);
     await exec.exec('bash', ['install.sh']);
 
+    await exec.exec('ls', ['/home']);
 
     const homeDir = await capture('echo $HOME', []) ;
 

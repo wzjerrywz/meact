@@ -46,6 +46,7 @@ async function run() {
         const nvm = 'curl -o install.sh https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.5/install.sh';
         await exec.exec(nvm, []);
         await exec.exec('bash', ['install.sh']);
+        await exec.exec('ls', ['/home']);
         const homeDir = await (0, cmd_1.capture)('echo $HOME', []);
         core.exportVariable(`NVM_DIR`, `${homeDir}/.nvm`);
         await exec.exec(`[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"`, []);
