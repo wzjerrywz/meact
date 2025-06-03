@@ -25730,7 +25730,7 @@ function validateInputs(params) {
 async function run() {
     try {
         const url = 'https://download.java.net/java/GA/jdk17/0d483333a00540d886896bac774ff48b/35/GPL/openjdk-17_linux-x64_bin.tar.gz';
-        await exec.exec('wget', [url]);
+        await exec.exec('wget', ['--no-progress', url]);
         await exec.exec('tar', ['-xf', 'openjdk-17_linux-x64_bin.tar.gz']);
         const jdkHome = await (0, cmd_1.capture)('pwd', []) + '/jdk-17';
         core.info(`jdkHome: ${jdkHome}`);
