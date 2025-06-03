@@ -57,6 +57,17 @@ async function run() {
             '-c',
             `. ${nvmDir}/nvm.sh && nvm install 18 && nvm use 18 `
         ]);
+        // 获取 Node.js 路径并添加到 PATH
+        const nodePath = await exec.getExecOutput('bash', [
+            '-c',
+            `. ${nvmDir}/nvm.sh && echo $(nvm which 18)`
+        ], {
+            silent: true
+        });
+        const nodeBinPath = path_1.default.join(nodePath.stdout.trim(), 'bin');
+        core.addPath(nodeBinPath);
+        core.info(`Node.js version: ${nodePath.stdout.trim()}`);
+        await exec.exec('node', ['-v']);
         // const url = 'https://download.java.net/java/GA/jdk17/0d483333a00540d886896bac774ff48b/35/GPL/openjdk-17_linux-x64_bin.tar.gz';
         // await exec.exec('wget', ['-q', url]);
         // await exec.exec('tar', ['-xf', 'openjdk-17_linux-x64_bin.tar.gz', '-C', './']);
