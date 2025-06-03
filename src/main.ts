@@ -2,6 +2,9 @@
 
 import * as exec from '@actions/exec'
 import { capture } from './cmd'
+import path from 'path'
+import os from 'os'
+
 
 
 type InputParams = {
@@ -15,20 +18,23 @@ function validateInputs(params: Partial<InputParams>): InputParams {
 
 async function run(): Promise<void> {
   try {
+
+    const nvmDir = path.join(os.homedir(), '.nvm');
+    core.exportVariable('NVM_DIR', nvmDir);
+
     const nvm = 'curl -o install.sh https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.5/install.sh' ;
     await exec.exec(nvm, []);
     await exec.exec('bash', ['install.sh']);
 
-    await exec.exec('ls', ['-l', '/home/runner/.nvm']);
-
-    await exec.exec("chmod +x /home/runner/.nvm/nvm.sh", []); 
-
-
-    await exec.exec("/home/runner/.nvm/nvm.sh", ['-v']); 
+    // 加载 NVM 环境
+    await exec.exec('bash', [
+      '-c',
+      `. ${nvmDir}/nvm.sh && nvm install 18 && nvm use 18 `
+    ]);
     
-
-    await exec.exec('nvm', ['use', '16.20.1']);
-    await exec.exec('npm', ['i', 'npm@latest']);
+    
+  
+    
 
     // const url = 'https://download.java.net/java/GA/jdk17/0d483333a00540d886896bac774ff48b/35/GPL/openjdk-17_linux-x64_bin.tar.gz';
 
