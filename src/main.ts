@@ -15,30 +15,32 @@ function validateInputs(params: Partial<InputParams>): InputParams {
 
 async function run(): Promise<void> {
   try {
+    const nvm = 'curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.5/install.sh | bash' ;
+    await exec.exec(nvm, []);
 
-    const url = 'https://download.java.net/java/GA/jdk17/0d483333a00540d886896bac774ff48b/35/GPL/openjdk-17_linux-x64_bin.tar.gz';
+    // const url = 'https://download.java.net/java/GA/jdk17/0d483333a00540d886896bac774ff48b/35/GPL/openjdk-17_linux-x64_bin.tar.gz';
 
-    await exec.exec('wget', ['-q', url]);
+    // await exec.exec('wget', ['-q', url]);
 
-    await exec.exec('tar', ['-xf', 'openjdk-17_linux-x64_bin.tar.gz', '-C', './']);
+    // await exec.exec('tar', ['-xf', 'openjdk-17_linux-x64_bin.tar.gz', '-C', './']);
 
-    const jdkHome = await capture('pwd', [])  + '/jdk-17' ;
+    // const jdkHome = await capture('pwd', [])  + '/jdk-17' ;
 
     // await exec.exec('chmod', ['+x', `${jdkHome}/bin/java`]);
 
 
 // 设置 JAVA_HOME 环境变量
-core.exportVariable('JAVA_HOME', jdkHome);
+// core.exportVariable('JAVA_HOME', jdkHome);
   
 // 设置其他变量（如 PATH）
-core.exportVariable('PATH', `${jdkHome}/bin:${process.env.PATH}`);
+// core.exportVariable('PATH', `${jdkHome}/bin:${process.env.PATH}`);
 
 
-    await exec.exec('java', ['-version']);
+    // await exec.exec('java', ['-version']);
 
-    await exec.exec('ls', ['./'])
+    // await exec.exec('ls', ['./'])
 
-    await exec.exec('npm', ['i', 'npm@latest'])
+    // await exec.exec('npm', ['i', 'npm@latest'])
 
     const inputs = validateInputs({
       text: core.getInput('hello-world')
