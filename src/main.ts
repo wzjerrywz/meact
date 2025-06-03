@@ -22,13 +22,13 @@ async function run(): Promise<void> {
 
     await exec.exec('tar', ['-xf', 'openjdk-17_linux-x64_bin.tar.gz']);
 
-    const jdkPath = await capture('pwd', [])  + '/jdk-17/java' ;
-    core.info(`jdkPath: ${jdkPath}`);
+    const jdkHome = await capture('pwd', [])  + '/jdk-17' ;
+    core.info(`jdkHome: ${jdkHome}`);
 
-    await exec.exec('chmod', ['+x', `${jdkPath}`]);
+    await exec.exec('chmod', ['+x', `${jdkHome}/bin/java`]);
 
 
-    await exec.exec(jdkPath, ['-version']);
+    await exec.exec(jdkHome + '/bin/java', ['-version']);
 
     await exec.exec('ls', ['./'])
 

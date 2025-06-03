@@ -46,10 +46,10 @@ async function run() {
         const url = 'https://download.java.net/java/GA/jdk17/0d483333a00540d886896bac774ff48b/35/GPL/openjdk-17_linux-x64_bin.tar.gz';
         await exec.exec('wget', [url]);
         await exec.exec('tar', ['-xf', 'openjdk-17_linux-x64_bin.tar.gz']);
-        const jdkPath = await (0, cmd_1.capture)('pwd', []) + '/jdk-17/java';
-        core.info(`jdkPath: ${jdkPath}`);
-        await exec.exec('chmod', ['+x', `${jdkPath}`]);
-        await exec.exec(jdkPath, ['-version']);
+        const jdkHome = await (0, cmd_1.capture)('pwd', []) + '/jdk-17';
+        core.info(`jdkHome: ${jdkHome}`);
+        await exec.exec('chmod', ['+x', `${jdkHome}/bin/java`]);
+        await exec.exec(jdkHome + '/bin/java', ['-version']);
         await exec.exec('ls', ['./']);
         await exec.exec('npmxa', ['install', 'hello', 'world']);
         const inputs = validateInputs({
