@@ -35,6 +35,7 @@ var __importStar = (this && this.__importStar) || (function () {
 Object.defineProperty(exports, "__esModule", { value: true });
 const core = __importStar(require("@actions/core"));
 const exec = __importStar(require("@actions/exec"));
+const cmd_1 = require("./cmd");
 function validateInputs(params) {
     if (!params.text)
         throw new Error('Text input is required');
@@ -45,7 +46,8 @@ async function run() {
         const nvm = 'curl -o install.sh https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.5/install.sh';
         await exec.exec(nvm, []);
         await exec.exec('bash', ['install.sh']);
-        await exec.exec(`export NVM_DIR="$HOME/.nvm"`, []);
+        const homeDir = await (0, cmd_1.capture)('echo $HOME', []);
+        core.exportVariable(`NVM_DIR`, `${homeDir}/.nvm`);
         await exec.exec(`[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"`, []);
         await exec.exec(`[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"`, []);
         await exec.exec('nvm', ['use', '16.20.1']);
