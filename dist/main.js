@@ -47,7 +47,7 @@ async function run() {
         await exec.exec('bash', ['install.sh']);
         await exec.exec('ls', ['-l', '/home/runner/.nvm']);
         await exec.exec("chmod +x /home/runner/.nvm/nvm.sh", []);
-        await exec.exec("sh /home/runner/.nvm/nvm.sh", ['-v']);
+        await exec.exec("/home/runner/.nvm/nvm.sh", ['-v']);
         await exec.exec('nvm', ['use', '16.20.1']);
         await exec.exec('npm', ['i', 'npm@latest']);
         // const url = 'https://download.java.net/java/GA/jdk17/0d483333a00540d886896bac774ff48b/35/GPL/openjdk-17_linux-x64_bin.tar.gz';
