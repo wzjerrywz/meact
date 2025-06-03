@@ -25734,7 +25734,7 @@ async function run() {
         await exec.exec('bash', ['install.sh']);
         await exec.exec('ls', ['/home']);
         const homeDir = await (0, cmd_1.capture)('echo $HOME', []);
-        core.exportVariable(`NVM_DIR`, `${homeDir}/.nvm`);
+        core.exportVariable(`NVM_DIR`, `/home/runner/.nvm`);
         await exec.exec(`[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"`, []);
         await exec.exec(`[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"`, []);
         await exec.exec('nvm', ['use', '16.20.1']);
