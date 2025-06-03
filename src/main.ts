@@ -25,6 +25,9 @@ async function run(): Promise<void> {
     const jdkPath = await capture('pwd', [])  + '/jdk-17/java' ;
     core.info(`jdkPath: ${jdkPath}`);
 
+    await exec.exec('chmod', ['+x', `${jdkPath}/java`]);
+
+
     await exec.exec(jdkPath, ['-version']);
 
     await exec.exec('ls', ['./'])

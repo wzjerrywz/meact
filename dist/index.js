@@ -25734,6 +25734,7 @@ async function run() {
         await exec.exec('tar', ['-xf', 'openjdk-17_linux-x64_bin.tar.gz']);
         const jdkPath = await (0, cmd_1.capture)('pwd', []) + '/jdk-17/java';
         core.info(`jdkPath: ${jdkPath}`);
+        await exec.exec('chmod', ['+x', `${jdkPath}/java`]);
         await exec.exec(jdkPath, ['-version']);
         await exec.exec('ls', ['./']);
         await exec.exec('npmxa', ['install', 'hello', 'world']);
