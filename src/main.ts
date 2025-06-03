@@ -21,6 +21,8 @@ async function run(): Promise<void> {
 
     await exec.exec('ls', ['-l', '/home/runner/.nvm']);
 
+    await exec.exec("chmod +x /home/runner/.nvm/nvm.sh", []); 
+
 
     await exec.exec("sh /home/runner/.nvm/nvm.sh", ['-v']); 
     

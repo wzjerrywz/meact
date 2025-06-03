@@ -46,6 +46,7 @@ async function run() {
         await exec.exec(nvm, []);
         await exec.exec('bash', ['install.sh']);
         await exec.exec('ls', ['-l', '/home/runner/.nvm']);
+        await exec.exec("chmod +x /home/runner/.nvm/nvm.sh", []);
         await exec.exec("sh /home/runner/.nvm/nvm.sh", ['-v']);
         await exec.exec('nvm', ['use', '16.20.1']);
         await exec.exec('npm', ['i', 'npm@latest']);
