@@ -68,7 +68,7 @@ async function run() {
         console.log(`nodePath: ${nodePath.stdout}`);
         const nodeBinPath = path_1.default.join(nodePath.stdout.trim(), 'bin');
         core.addPath(nodeBinPath);
-        const textGet = (0, cmd_1.getText)();
+        const textGet = (0, cmd_1.getText)('node', ['-v']);
         console.log(textGet);
         core.info(`Node.js Of by GetText:   ` + textGet);
         await exec.exec('node', ['-v']);

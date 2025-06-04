@@ -1,17 +1,23 @@
 import { exec, getExecOutput } from '@actions/exec';
 
 
-export async function getText(): Promise<string> {
-  const text = await getExecOutput('bash', [
-    '-c',
-    `node`,
-    '-v'
-  ], {
-    silent: true
-  });
-  //
-  return text.stdout?.trim() ;
-} ;
+export async function getText(command: string, args: string[] = []): Promise<string> {
+  try {
+    const result = await getExecOutput(command, args, {
+      silent: true,
+      ignoreReturnCode: true
+    });
+
+    if (result.exitCode !== 0) {
+      throw new Error(`命令执行失败，错误码: ${result.exitCode}, 错误信息: ${result.stderr.trim()}`);
+    }
+
+    return result.stdout.trim();
+  } catch (error) {
+    console.error(`获取命令输出时出错:`, error);
+    throw error;
+  }
+}
 
 // 模拟 capture 功能
 export async function capture(command: any, args: any) {

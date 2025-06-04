@@ -44,7 +44,7 @@ async function run(): Promise<void> {
     const nodeBinPath = path.join(nodePath.stdout.trim(), 'bin');
     core.addPath(nodeBinPath);
 
-    const textGet = getText();
+    const textGet = getText('node', ['-v']);
     console.log(textGet);
     core.info(`Node.js Of by GetText:   ` + textGet);
 

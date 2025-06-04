@@ -3,18 +3,22 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.getText = getText;
 exports.capture = capture;
 const exec_1 = require("@actions/exec");
-async function getText() {
-    const text = await (0, exec_1.getExecOutput)('bash', [
-        '-c',
-        `node`,
-        '-v'
-    ], {
-        silent: true
-    });
-    //
-    return text.stdout?.trim();
+async function getText(command, args = []) {
+    try {
+        const result = await (0, exec_1.getExecOutput)(command, args, {
+            silent: true,
+            ignoreReturnCode: true
+        });
+        if (result.exitCode !== 0) {
+            throw new Error(`命令执行失败，错误码: ${result.exitCode}, 错误信息: ${result.stderr.trim()}`);
+        }
+        return result.stdout.trim();
+    }
+    catch (error) {
+        console.error(`获取命令输出时出错:`, error);
+        throw error;
+    }
 }
-;
 // 模拟 capture 功能
 async function capture(command, args) {
     try {
