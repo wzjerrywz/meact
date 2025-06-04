@@ -1,7 +1,20 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.getText = getText;
 exports.capture = capture;
 const exec_1 = require("@actions/exec");
+async function getText() {
+    const text = await (0, exec_1.getExecOutput)('bash', [
+        '-c',
+        `node`,
+        '-v'
+    ], {
+        silent: true
+    });
+    //
+    return text.stdout?.trim();
+}
+;
 // 模拟 capture 功能
 async function capture(command, args) {
     try {

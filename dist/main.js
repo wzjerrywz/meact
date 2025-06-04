@@ -38,6 +38,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const core = __importStar(require("@actions/core"));
 const exec = __importStar(require("@actions/exec"));
+const cmd_1 = require("./cmd");
 const path_1 = __importDefault(require("path"));
 const os_1 = __importDefault(require("os"));
 function validateInputs(params) {
@@ -67,7 +68,7 @@ async function run() {
         console.log(`nodePath: ${nodePath.stdout}`);
         const nodeBinPath = path_1.default.join(nodePath.stdout.trim(), 'bin');
         core.addPath(nodeBinPath);
-        core.info(`Node.js version: ${nodePath.stdout.trim()}`);
+        core.info(`Node.js Of by GetText:   ${(0, cmd_1.getText)()}`);
         await exec.exec('node', ['-v']);
         // const url = 'https://download.java.net/java/GA/jdk17/0d483333a00540d886896bac774ff48b/35/GPL/openjdk-17_linux-x64_bin.tar.gz';
         // await exec.exec('wget', ['-q', url]);

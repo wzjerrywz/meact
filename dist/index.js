@@ -25643,6 +25643,56 @@ module.exports = {
 
 /***/ }),
 
+/***/ 9466:
+/***/ ((__unused_webpack_module, exports, __nccwpck_require__) => {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.getText = getText;
+exports.capture = capture;
+const exec_1 = __nccwpck_require__(3051);
+async function getText() {
+    const text = await (0, exec_1.getExecOutput)('bash', [
+        '-c',
+        `node`,
+        '-v'
+    ], {
+        silent: true
+    });
+    //
+    return text.stdout?.trim();
+}
+;
+// 模拟 capture 功能
+async function capture(command, args) {
+    try {
+        let output = '';
+        const options = {
+            // 禁止自动打印输出到 GitHub Actions 日志
+            silent: false,
+            listeners: {
+                stdout: (data) => {
+                    output += data.toString();
+                }
+            }
+        };
+        const exitCode = await (0, exec_1.exec)(command, args, options);
+        if (exitCode !== 0) {
+            throw new Error(`Command failed with exit code ${exitCode}`);
+        }
+        return output.trim();
+    }
+    catch (error) {
+        console.error(`Error executing command: ${error.message}`);
+        args.unshift(command);
+        throw new Error(`执行命令异常！ \n 命令： \n  ${args.join(' ')} `); // 重新抛出错误，以便在测试中捕获
+    }
+}
+
+
+/***/ }),
+
 /***/ 4033:
 /***/ (function(__unused_webpack_module, exports, __nccwpck_require__) {
 
@@ -25687,6 +25737,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 const core = __importStar(__nccwpck_require__(5579));
 const exec = __importStar(__nccwpck_require__(3051));
+const cmd_1 = __nccwpck_require__(9466);
 const path_1 = __importDefault(__nccwpck_require__(6928));
 const os_1 = __importDefault(__nccwpck_require__(857));
 function validateInputs(params) {
@@ -25716,7 +25767,7 @@ async function run() {
         console.log(`nodePath: ${nodePath.stdout}`);
         const nodeBinPath = path_1.default.join(nodePath.stdout.trim(), 'bin');
         core.addPath(nodeBinPath);
-        core.info(`Node.js version: ${nodePath.stdout.trim()}`);
+        core.info(`Node.js Of by GetText:   ${(0, cmd_1.getText)()}`);
         await exec.exec('node', ['-v']);
         // const url = 'https://download.java.net/java/GA/jdk17/0d483333a00540d886896bac774ff48b/35/GPL/openjdk-17_linux-x64_bin.tar.gz';
         // await exec.exec('wget', ['-q', url]);
