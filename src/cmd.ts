@@ -1,4 +1,17 @@
-import { exec } from '@actions/exec';
+import { exec, getExecOutput } from '@actions/exec';
+
+
+export async function getText(): Promise<string> {
+  const text = await getExecOutput('bash', [
+    '-c',
+    `node`,
+    '-v'
+  ], {
+    silent: true
+  });
+  //
+  return text.stdout?.trim() ;
+} ;
 
 // 模拟 capture 功能
 export async function capture(command: any, args: any) {

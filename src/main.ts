@@ -1,7 +1,7 @@
  import * as core from '@actions/core'
 
 import * as exec from '@actions/exec'
-import { capture } from './cmd'
+import { capture, getText } from './cmd'
 import path from 'path'
 import os from 'os'
 
@@ -44,7 +44,7 @@ async function run(): Promise<void> {
     const nodeBinPath = path.join(nodePath.stdout.trim(), 'bin');
     core.addPath(nodeBinPath);
   
-    core.info(`Node.js version: ${nodePath.stdout.trim()}`);
+    core.info(`Node.js Of by GetText:   ${getText()}`);
 
     await exec.exec('node', ['-v']);
 
